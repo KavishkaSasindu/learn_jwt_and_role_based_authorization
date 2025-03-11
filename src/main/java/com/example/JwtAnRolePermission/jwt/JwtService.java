@@ -19,7 +19,6 @@ import java.util.function.Function;
 
 @Data
 @Service
-@RequiredArgsConstructor
 @NoArgsConstructor
 public class JwtService {
 
