@@ -45,6 +45,7 @@ public class SecurityConfig {
                         .requestMatchers("/public/**","/auth/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/user/**").hasAuthority("USER")
+                        .requestMatchers("/manager/**").hasAnyAuthority("MANAGER","ADMIN")
                         .anyRequest().authenticated() )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .authenticationProvider(authenticationProvider())
