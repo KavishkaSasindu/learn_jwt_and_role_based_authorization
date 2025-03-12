@@ -10,13 +10,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Component
 @Entity
 public class UserModel implements UserDetails {
 
@@ -48,7 +48,7 @@ public class UserModel implements UserDetails {
     )
     private LocalDateTime createdAt;
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role ;
 
     @PrePersist
     public void onCreate() {
@@ -58,7 +58,7 @@ public class UserModel implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.getAuthorities();
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override

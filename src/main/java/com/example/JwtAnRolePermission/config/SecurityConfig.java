@@ -17,8 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.example.JwtAnRolePermission.model.Permission.ADMIN_READ;
-import static com.example.JwtAnRolePermission.model.Role.ADMIN;
 
 @Configuration
 @EnableWebSecurity
@@ -45,9 +43,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request->request
                         .requestMatchers("/public/**","/auth/**").permitAll()
-                        .requestMatchers("/admin/**").hasRole(ADMIN.name())
-                        .requestMatchers("/admin/**").hasAuthority(ADMIN_READ.name())
-                .anyRequest().authenticated() )
+                        .anyRequest().authenticated() )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .authenticationProvider(authenticationProvider())
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

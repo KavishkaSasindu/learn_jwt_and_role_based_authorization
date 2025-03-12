@@ -34,7 +34,7 @@ public class AuthService {
             return null;
         }
         userModel.setPassword(bCryptPasswordEncoder.encode(userModel.getPassword()));
-        userModel.setRole(Role.ADMIN);
+        userModel.setRole(Role.USER);
         return userRepo.save(userModel);
 
     }

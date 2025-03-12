@@ -13,17 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Data
 @RequestMapping("/admin")
 @RestController
-@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
     @GetMapping("/getAdmin")
-    @PreAuthorize("hasAuthority('admin:read')")
     public ResponseEntity<?> getAdmin() {
         return ResponseEntity.status(HttpStatus.OK).body("GET :: Get Admin");
     }
 
     @GetMapping("/createAdmin")
-    @PreAuthorize("hasAuthority('admin:create')")
     public ResponseEntity<?> createAdmin() {
         return ResponseEntity.status(HttpStatus.OK).body("POST :: Create Admin");
     }
