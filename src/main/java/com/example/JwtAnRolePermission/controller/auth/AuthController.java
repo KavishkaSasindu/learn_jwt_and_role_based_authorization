@@ -4,6 +4,7 @@ import com.example.JwtAnRolePermission.model.UserModel;
 import com.example.JwtAnRolePermission.service.auth.AuthService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,20 @@ public class AuthController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("user already exists");
             }
             return ResponseEntity.status(HttpStatus.OK).body(user);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+//    login user
+    @PostMapping("/login")
+    public ResponseEntity<?> logInUser(@RequestBody UserModel userModel) {
+        try{
+            String returnValue = authService.loginUser(userModel);
+            if(returnValue == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("login failed");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(returnValue);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
